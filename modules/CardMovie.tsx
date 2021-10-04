@@ -3,11 +3,11 @@ import { Center, Image } from '@chakra-ui/react';
 
 interface CardProps {
   key: number;
-  src: string;
-  alt: string;
+  movie: any;
+  handleClick: any;
 }
 
-const CardMovie = ({ key, src, alt }: CardProps) => {
+const CardMovie = ({ key, movie, handleClick }: CardProps) => {
   return (
     <Center
       maxW='sm'
@@ -17,12 +17,15 @@ const CardMovie = ({ key, src, alt }: CardProps) => {
       key={key}
       boxShadow='lg'
       mb='5'
+      onClick={() => {
+        handleClick(movie);
+      }}
       _hover={{
         transform: 'translate3d(0px, -8px, 0px)',
         boxShadow: 'rgba(0, 0, 0, 0.22) 0px 19px 43px',
       }}
     >
-      <Image src={src} alt={alt} objectFit='cover' />
+      <Image src={movie?.Poster} alt={movie?.Title} objectFit='cover' />
     </Center>
   );
 };
