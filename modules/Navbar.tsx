@@ -1,22 +1,5 @@
 import React from 'react';
-import {
-  Box,
-  Flex,
-  Avatar,
-  HStack,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  useColorModeValue,
-  IconButton,
-  Icon,
-  Link,
-  Text,
-  Image,
-} from '@chakra-ui/react';
+import { Box, Flex, HStack, useColorModeValue, Text } from '@chakra-ui/react';
 import { DarkModeSwitch } from './DarkModeSwitch';
 
 const Navbar: React.FC = () => {
