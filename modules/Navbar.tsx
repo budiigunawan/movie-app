@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Flex, HStack, useColorModeValue, Text } from '@chakra-ui/react';
 import { DarkModeSwitch } from './DarkModeSwitch';
+import NextLink from 'next/link';
 
 const Navbar: React.FC = () => {
   return (
@@ -15,9 +16,11 @@ const Navbar: React.FC = () => {
     >
       <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
         <HStack spacing={2} alignItems={'center'}>
-          <Text fontWeight='black' fontSize='lg'>
-            Movie App
-          </Text>
+          <NextLink href='/' as={`/`}>
+            <Text fontWeight='black' fontSize='lg'>
+              Movie App
+            </Text>
+          </NextLink>
         </HStack>
         <HStack alignItems='center' spacing='6'>
           <DarkModeSwitch />

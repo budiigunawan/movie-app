@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import DetailMovie from '../../modules/DetailMovie';
+import { Spinner, Center } from '@chakra-ui/react';
 
 const DetailPage: React.FC = () => {
   const router = useRouter();
@@ -19,7 +20,17 @@ const DetailPage: React.FC = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  return <>{data && !loading ? <DetailMovie data={data} /> : <p>loading</p>}</>;
+  return (
+    <>
+      {data && !loading ? (
+        <DetailMovie data={data} />
+      ) : (
+        <Center py='28vh'>
+          <Spinner size='lg' />
+        </Center>
+      )}
+    </>
+  );
 };
 
 export default DetailPage;

@@ -38,20 +38,18 @@ const DetailMovie = ({ data }: DetailMovieProps) => {
             mt='1'
             fontWeight='bold'
             as='h2'
-            fontSize='22px'
-            textAlign='right'
+            fontSize={{ base: '16px', lg: '22px' }}
+            textAlign={{ base: 'center', lg: 'right' }}
             lineHeight='tight'
-            isTruncated
           >
             {data?.Title}
           </Box>
           <Box
             fontWeight='normal'
             as='p'
-            fontSize='16px'
-            textAlign='right'
+            fontSize={{ base: '12px', lg: '16px' }}
+            textAlign={{ base: 'center', lg: 'right' }}
             lineHeight='tight'
-            isTruncated
           >
             Released Date: {data?.Released}
           </Box>
@@ -59,30 +57,29 @@ const DetailMovie = ({ data }: DetailMovieProps) => {
             mt='8'
             fontWeight='bold'
             as='h4'
-            fontSize='18px'
-            textAlign='right'
+            fontSize={{ base: '14px', lg: '18px' }}
+            textAlign={{ base: 'center', lg: 'right' }}
             lineHeight='tight'
-            isTruncated
           >
-            Rating: {data?.Ratings[0].Value} · {data?.imdbVotes} votes
+            Rating: {data?.Ratings[0]?.Value} · {data?.imdbVotes} votes
           </Box>
           <Box
             mt='10'
             ml='4'
             fontWeight='normal'
             as='p'
-            fontSize='16px'
+            fontSize={{ base: '14px', lg: '16px' }}
             textAlign='justify'
             lineHeight='tight'
           >
             {data?.Plot}
           </Box>
           <Box
-            mt='4'
+            mt='8'
             fontWeight='semibold'
             as='p'
-            fontSize='16px'
-            textAlign='right'
+            fontSize={{ base: '14px', lg: '16px' }}
+            textAlign={{ base: 'center', lg: 'right' }}
             lineHeight='tight'
             isTruncated
           >
@@ -95,8 +92,8 @@ const DetailMovie = ({ data }: DetailMovieProps) => {
             mt='2'
             fontWeight='semibold'
             as='p'
-            fontSize='16px'
-            textAlign='right'
+            fontSize={{ base: '14px', lg: '16px' }}
+            textAlign={{ base: 'center', lg: 'right' }}
             lineHeight='tight'
             isTruncated
           >
@@ -109,8 +106,8 @@ const DetailMovie = ({ data }: DetailMovieProps) => {
             mt='2'
             fontWeight='semibold'
             as='p'
-            fontSize='16px'
-            textAlign='right'
+            fontSize={{ base: '14px', lg: '16px' }}
+            textAlign={{ base: 'center', lg: 'right' }}
             lineHeight='tight'
             isTruncated
           >
