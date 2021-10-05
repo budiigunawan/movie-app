@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  InputGroup,
-  Input,
-  InputLeftElement,
-  InputRightElement,
-  IconButton,
-  Center,
-} from '@chakra-ui/react';
-import { SearchIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import { Text } from '@chakra-ui/react';
+import { AsyncPaginate } from 'react-select-async-paginate';
+import axios from 'axios';
 
 interface SearchBarProps {
   handleSearch: any;
@@ -16,45 +10,77 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ handleSearch, setKeyword, keyword }: SearchBarProps) => {
-  const handleChange = (e: any) => {
-    setKeyword(e.target.value);
+  const [temp, settemp] = React.useState<string>(keyword);
+
+  const loadMovies = async (
+    searchQuery: string,
+    loadedOptions: any[],
+    { page }: any
+  ) => {
+    if (!searchQuery) {
+      return {
+        options: [],
+        hasMore: false,
+      };
+    }
+
+    const { data } = await axios.get(
+      `http://www.omdbapi.com/?apikey=e2b4f890&s=*${searchQuery}*&type=movie&page=${page}`
+    );
+
+    let tempArray = [
+      ...data?.Search.map((item: any) => ({
+        label: item.Title,
+        value: item.Title,
+      })),
+    ];
+
+    tempArray = [
+      {
+        label: temp,
+        value: temp,
+      },
+      ...tempArray,
+    ];
+
+    return {
+      options: tempArray,
+      hasMore: false,
+      additional: {
+        page: page + 1,
+      },
+    };
   };
 
-  const handleClear = () => {
-    setKeyword('');
+  const handleOption = (tempValue: string) => {
+    settemp(tempValue);
+    setKeyword(tempValue);
   };
 
   return (
-    <InputGroup size='md' boxShadow='md'>
-      <InputLeftElement
-        pointerEvents='none'
-        children={<SearchIcon color='gray.300' />}
-      />
-      <Input
-        type='text'
-        value={keyword}
-        onChange={handleChange}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSearch();
-          }
+    <>
+      <Text mb='2'>Type Movie Title Here:</Text>
+      <AsyncPaginate
+        loadOptions={loadMovies as any}
+        onChange={(option: any) => {
+          handleOption(option?.value);
         }}
-        pr='4.5rem'
-        placeholder='Type movie title here'
+        onInputChange={(e) => {
+          settemp(e);
+        }}
+        additional={{
+          page: 1,
+        }}
+        placeholder='search'
+        inputValue={temp}
+        value={{
+          label: keyword,
+          value: keyword,
+        }}
+        isClearable={true}
+        isSearchable={true}
       />
-      {keyword?.length && (
-        <InputRightElement>
-          <IconButton
-            variant='ghost'
-            aria-label='Clear'
-            bg={'red.300'}
-            color={'whitesmoke'}
-            icon={<SmallCloseIcon />}
-            onClick={handleClear}
-          />
-        </InputRightElement>
-      )}
-    </InputGroup>
+    </>
   );
 };
 
