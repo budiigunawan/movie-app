@@ -56,19 +56,19 @@ const Home: React.FC = () => {
         keyword={keyword}
       />
       <Box mt='8'>
-        {moviesList && !loading ? (
-          <Grid templateColumns='repeat(2, 1fr)' gap={5} mb='10' mt='6'>
-            {moviesList?.map((movie, id) => {
-              return (
-                <CardMovie key={id} movie={movie} handleClick={handleClick} />
-              );
-            })}
-          </Grid>
-        ) : (
-          <Center py='28vh'>
+        <Center>
+          {moviesList && !loading ? (
+            <Grid templateColumns='repeat(2, 1fr)' gap={5} mb='10' mt='6'>
+              {moviesList?.map((movie, id) => {
+                return (
+                  <CardMovie key={id} movie={movie} handleClick={handleClick} />
+                );
+              })}
+            </Grid>
+          ) : (
             <Spinner size='lg' />
-          </Center>
-        )}
+          )}
+        </Center>
       </Box>
       <ModalMovie
         showModal={showModal}

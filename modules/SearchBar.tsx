@@ -5,6 +5,7 @@ import {
   InputLeftElement,
   InputRightElement,
   IconButton,
+  Center,
 } from '@chakra-ui/react';
 import { SearchIcon, SmallCloseIcon } from '@chakra-ui/icons';
 
@@ -24,7 +25,7 @@ const SearchBar = ({ handleSearch, setKeyword, keyword }: SearchBarProps) => {
   };
 
   return (
-    <InputGroup size='md'>
+    <InputGroup size='md' boxShadow='md'>
       <InputLeftElement
         pointerEvents='none'
         children={<SearchIcon color='gray.300' />}
