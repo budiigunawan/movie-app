@@ -4,12 +4,11 @@ import { AsyncPaginate } from 'react-select-async-paginate';
 import axios from 'axios';
 
 interface SearchBarProps {
-  handleSearch: any;
   setKeyword: any;
   keyword: string;
 }
 
-const SearchBar = ({ handleSearch, setKeyword, keyword }: SearchBarProps) => {
+const SearchBar = ({ setKeyword, keyword }: SearchBarProps) => {
   const [temp, settemp] = React.useState<string>(keyword);
 
   const loadMovies = async (
