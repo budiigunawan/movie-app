@@ -13,6 +13,7 @@ import {
   Badge,
   Button,
 } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 interface ModalProps {
   showModal: boolean;
@@ -57,9 +58,17 @@ const ModalMovie = ({ showModal, handleCloseModal, data }: ModalProps) => {
               </Badge>
             </Center>
             <Center>
-              <Button colorScheme='blue' variant='solid' size='sm' ml={2}>
-                more info
-              </Button>
+              <NextLink href='/detail/[id]' as={`/detail/${data?.imdbID}`}>
+                <Button
+                  colorScheme='blue'
+                  type='button'
+                  variant='solid'
+                  size='sm'
+                  ml={2}
+                >
+                  more info
+                </Button>
+              </NextLink>
             </Center>
           </Grid>
         </ModalBody>
