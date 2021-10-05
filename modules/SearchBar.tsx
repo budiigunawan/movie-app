@@ -28,7 +28,7 @@ const SearchBar = ({ setKeyword, keyword }: SearchBarProps) => {
     );
 
     let tempArray = [
-      ...data?.Search.map((item: any) => ({
+      ...data?.['Search'].map((item: any) => ({
         label: item.Title,
         value: item.Title,
       })),
