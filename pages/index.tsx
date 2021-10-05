@@ -11,6 +11,26 @@ const Home: React.FC = () => {
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [keyword, setKeyword] = React.useState<string>('');
+  const [noData, setNoData] = React.useState<boolean>(false);
+  // const [loadingMoreData, setLoadingMoreData] = React.useState<boolean>(false);
+  const [page, setPage] = React.useState<number>(1);
+  const [bufferMovieList, setBufferMovieList] = React.useState<any[]>([]);
+
+  if (typeof window !== 'undefined') {
+    window.onscroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight
+      ) {
+        const currentCounter: number = moviesList?.length;
+        const maxMovie: number = page * 10;
+        if (!noData && currentCounter < maxMovie) {
+          const tempArray = [...moviesList, ...bufferMovieList];
+          setMoviesList(tempArray);
+        }
+      }
+    };
+  }
 
   React.useEffect(() => {
     axios
@@ -18,14 +38,20 @@ const Home: React.FC = () => {
         'http://www.omdbapi.com/?apikey=e2b4f890&s=superman&type=movie&page=1'
       )
       .then((res) => {
-        setMoviesList(res.data?.['Search']);
+        const rawList: any[] = res.data?.['Search'];
+        const slicedArray = rawList.slice(0, 5);
+        setMoviesList([...slicedArray, ...bufferMovieList]);
+        const restArray = rawList.slice(5, 10);
+        setBufferMovieList(restArray);
         setLoading(false);
       })
       .catch((err) => console.error(err));
   }, []);
 
   React.useEffect(() => {
-    handleSearch();
+    if (keyword) {
+      handleSearch();
+    }
   }, [keyword]);
 
   const handleClick = (movie: any) => {
@@ -41,7 +67,7 @@ const Home: React.FC = () => {
     if (keyword) {
       try {
         const { data } = await axios.get(
-          `http://www.omdbapi.com/?apikey=e2b4f890&s=*${keyword}*&type=movie&page=1`
+          `http://www.omdbapi.com/?apikey=e2b4f890&s=*${keyword}*&type=movie&page=${page}`
         );
         setMoviesList(data?.Search);
       } catch (error) {
@@ -54,11 +80,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <SearchBar
-        // handleSearch={handleSearch}
-        setKeyword={setKeyword}
-        keyword={keyword}
-      />
+      <SearchBar setKeyword={setKeyword} keyword={keyword} />
       <Box mt='8'>
         <Center>
           {moviesList && !loading ? (
