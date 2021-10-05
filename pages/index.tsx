@@ -24,6 +24,10 @@ const Home: React.FC = () => {
       .catch((err) => console.error(err));
   }, []);
 
+  React.useEffect(() => {
+    handleSearch();
+  }, [keyword]);
+
   const handleClick = (movie: any) => {
     setShowModal(true);
     setClickedMovie(movie);
@@ -51,7 +55,7 @@ const Home: React.FC = () => {
   return (
     <>
       <SearchBar
-        handleSearch={handleSearch}
+        // handleSearch={handleSearch}
         setKeyword={setKeyword}
         keyword={keyword}
       />
